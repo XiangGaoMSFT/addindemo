@@ -9,16 +9,16 @@ const api_url = 'https://api.huobi.pro/market/tickers';
 router.get('/:token', cors(), function(req, res) {
     var token = req.params.token;
     if (token) {
-        https.get(api_url, (resp) => {
+        https.get(api_url, function(resp) {
             var data = '';
-            resp.on('data', (chunk) => {
+            resp.on('data', function(chunk) {
                 data += chunk;
             });
 
-            resp.on('end', () => {
-                res.status(200).send({ price: JSON.parse(data).data.filter((item) => item.symbol == token)[0].close });
+            resp.on('end', function () {
+                res.status(200).send({ price: JSON.parse(data).data.filter(function (item) { return item.symbol == token})[0].close });
             });
-        }).on('error', (err) => {
+        }).on('error', function (err) {
             res.status(500).send({ message: 'api call failed with error: ' + JSON.stringify(err) });
         });
     } else {
