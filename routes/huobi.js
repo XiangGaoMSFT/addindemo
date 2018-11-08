@@ -7,10 +7,10 @@ const api_url = 'https://api.huobi.pro/market/tickers';
 
 /* GET users listing. */
 router.get('/:token', cors(), function(req, res) {
-    let token = req.params.token;
+    var token = req.params.token;
     if (token) {
         https.get(api_url, (resp) => {
-            let data = '';
+            var data = '';
             resp.on('data', (chunk) => {
                 data += chunk;
             });
