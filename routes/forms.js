@@ -1,11 +1,16 @@
 var express = require('express');
 var router = express.Router();
+var cache = require('memory-cache');
 
 const https = require('https');
 const cors = require('cors');
 const uuid = require('uuid/v4');
 
-var listeners = {};
+if (!cache.get('forms.listeners')) {
+    cache.put('forms.listeners', {});
+}
+
+var listeners = cache.get('forms.listeners');
 
 router.get('/', function(req, res) {
     res.render('forms');
