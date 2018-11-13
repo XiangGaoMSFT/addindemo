@@ -97,6 +97,7 @@
         wordCloudDom.show();
         wordWallButton.show();
         wordCloudButton.hide();
+        updateWordWallCloud();
     })
 
     var storage = window.localStorage;
@@ -159,6 +160,10 @@
             words_counter[data.response] = 1;
         }
 
+        updateWordWallCloud();
+    });
+
+    function updateWordWallCloud() {
         var word_counted = Object.keys(words_counter).map(function (d) {
             return {
                 text: d,
@@ -174,5 +179,5 @@
             fontSizeStepCount: 5,
             height: 475
         });
-    });
+    }
 })
