@@ -24,7 +24,7 @@ router.post('/listener/:id/responses', cors(), function(req, res) {
 
     var listener = listeners[id];
     if (listener && listener.socket) {
-        socket.emit('forms.newResponse', { response: response });
+        listener.socket.emit('forms.newResponse', { response: response });
     } else {
         if (!listener) {
             console.error('listener for ' + id + ' does not exist');
