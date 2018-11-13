@@ -20,7 +20,7 @@ router.post('/listener/:id/responses', cors(), function(req, res) {
     var response = req.body;
     var id = req.params.id;
 
-    console.log('new response for ' + id + ': ' + response);
+    console.log('new response for ' + id + ': ' + JSON.stringify(response));
 
     var listener = listeners[id];
     if (listener && listener.socket) {
