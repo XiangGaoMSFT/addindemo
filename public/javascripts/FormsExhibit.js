@@ -152,10 +152,10 @@
     socket.on('forms.newResponse', function (data) {
         words.push(data.response);
 
-        if (words_counter[data.reponse]) {
-            ++words_counter[data.reponse];
+        if (words_counter[data.response]) {
+            ++words_counter[data.response];
         } else {
-            words_counter[data.reponse] = 1;
+            words_counter[data.response] = 1;
         }
 
         var word_counted = Object.keys(words_counter).map(function (d) {

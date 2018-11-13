@@ -8,12 +8,13 @@ const uuid = require('uuid/v4');
 var listeners = {};
 
 router.get('/', function(req, res) {
-  res.render('forms');
+    res.render('forms');
 });
 
 router.delete('/listener/:id', cors(), function(req, res) {
     var id = req.params.id;
     delete listeners.id;
+    res.status(200).send();
 });
 
 router.post('/listener/:id/responses', cors(), function(req, res) {
@@ -28,10 +29,14 @@ router.post('/listener/:id/responses', cors(), function(req, res) {
     } else {
         if (!listener) {
             console.error('listener for ' + id + ' does not exist');
+            res.status(500).send({ message: 'listener for ' + id + ' does not exist' });
         } else {
             console.error('socket for ' + id + ' does not exist');
+            res.status(500).send({ message: 'socket for ' + id + ' does not exist' });
         }
     }
+
+    res.status(200).send();
 });
 
 router.onSocketIoLoaded = function(io) {
