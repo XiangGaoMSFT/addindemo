@@ -144,6 +144,7 @@
             });
         } else {
             $('#FormsExhibit-Connection').hide();
+            wordWallDom.show();
         }
     });
 
