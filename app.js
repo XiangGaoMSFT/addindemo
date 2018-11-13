@@ -8,6 +8,7 @@ var bodyParser = require("body-parser");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var huobiRouter = require('./routes/huobi');
+var formsRouter = require('./routes/forms');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/huobi', huobiRouter);
+app.use('/forms', formsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,5 +45,10 @@ app.use(function(err, req, res, next) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.onSocketIoLoaded = function(io) {
+  io.origins('*:*');
+  formsRouter.onSocketIoLoaded(io);
+}
 
 module.exports = app;

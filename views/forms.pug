@@ -1,0 +1,34 @@
+doctype html
+
+html
+    head
+        title FormsExhibit
+        script(src='/javascripts/jquery-1.9.1.min.js')
+        script(src='/javascripts/FormsExhibit.js')
+        script(src='/javascripts/jqcloud-1.0.4.js')
+        script(src='/socket.io/socket.io.js')
+        link(rel='stylesheet', href='/stylesheets/jqcloud.css')
+
+    body
+        #content-root
+        #FormsExhibit-Connection
+            h1 Connect with Microsoft Flow
+            #FormsExhibit-Start(style='display: none')
+                p You've generated the connection URL before. Do you want to use the existing one or generate a new connection URL?
+                p The connection URL is 
+                    a#FormsExhibit-ExistingSocketUri(href='')
+                a#FormsExhibit-UseExisting Use Existing
+                a#FormsExhibit-CreateNew Create New
+            #FormsExhibit-Connecting(style='display: none')
+                p Connecting...
+            #FormsExhibit-Waiting(style='display: none')
+                ol
+                    li Open 
+                        a(href='https://flow.microsoft.com') https://flow.microsoft.com
+                    li Import flow from 
+                        a(href='/resources/FormsExhibitFlow.zip') this package
+                    li Choose your form
+                    li Replace the http uri with 
+                        a#FormsExhibit-SocketUri(href='')
+
+                a#FormsExhibit-Done Done

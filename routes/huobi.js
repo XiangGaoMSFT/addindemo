@@ -5,7 +5,6 @@ const https = require('https');
 const cors = require('cors');
 const api_url = 'https://api.huobi.pro/market/tickers';
 
-/* GET users listing. */
 router.get('/:token', cors(), function(req, res) {
     var token = req.params.token;
     if (token) {
