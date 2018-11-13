@@ -17,7 +17,7 @@ router.delete('/listener/:id', cors(), function(req, res) {
 });
 
 router.post('/listener/:id/responses', cors(), function(req, res) {
-    var response = req.body;
+    var response = req.body.response;
     var id = req.params.id;
 
     console.log('new response for ' + id + ': ' + JSON.stringify(response));
