@@ -101,8 +101,8 @@
 
     var storage = window.localStorage;
 
-    // const host = 'https://addindemo.azurewebsites.net';
-    const host = 'http://localhost:3000';
+    const host = 'https://addindemo.azurewebsites.net';
+    // const host = 'http://localhost:3000';
     const socket = io.connect(host);
     var listenerId = storage.getItem('listenerId');
     if (listenerId) {
@@ -113,16 +113,16 @@
         socket.emit('forms.newListener');
     }
 
-    var useExisting = true;
+    var useExisting = false;
     
     $('#FormsExhibit-UseExisting').click(function () {
+        useExisting = true;
         $('#FormsExhibit-Start').hide();
         $('#FormsExhibit-Connecting').show();
         socket.emit('forms.newListener', listenerId);
     });
 
     $('#FormsExhibit-CreateNew').click(function () {
-        useExisting = false;
         $('#FormsExhibit-Start').hide();
         $('#FormsExhibit-Connecting').show();
         socket.emit('forms.newListener');
