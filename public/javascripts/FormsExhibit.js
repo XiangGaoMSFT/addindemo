@@ -159,37 +159,42 @@
             response = response.substr(0, 12) + "...";
         }
 
-        new_words.push(response);
+        new_words.push({
+            text: response,
+            time: Date.now()
+        });
     });
 
     function updateWordWallCloud() {
         for (var i = 0; i < new_words.length; ++i) {
-            if (words_counter[new_words[i]]) {
-                ++words_counter[new_words[i]];
+            if (words_counter[new_words[i].text]) {
+                ++words_counter[new_words[i].text].count;
             } else {
-                words_counter[new_words[i]] = 1;
+                words_counter[new_words[i].text].count = 1;
             }
+
+            words_counter[new_words[i].text].time = new_words[i].time;
         }
 
         var words_array = Object.keys(words_counter).map(function (word) {
-            return { text: word, weight: words_counter[word] };
+            return { text: word, weight: words_counter[word].count, time: words_counter[word].time };
         });
 
         words_array.sort(function (a, b) {
-            return b.weight - a.weight;
+            return b.weight == a.weight ? b.time - a.time : b.weight - a.weight;
         });
 
         // limit the count to avoid performance degradation
         const max_words_count = 15;
         var words_array = words_array.splice(0, max_words_count); // choose top K
         for (var i = 0; i < Math.min(new_words.length, 3); ++i) {
-            if (words_array.filter(function (item) { return item.text == new_words[i] }).length == 0) {
-                var word_item = { text: new_words[i], weight: 1 };
+            if (words_array.filter(function (item) { return item.text == new_words[i].text }).length == 0) {
+                var word_item = { text: new_words[i].text, weight: 1, time: new_words[i].time };
                 words_array.push(word_item); // always push the new word
             }
         }
 
-        words = words.concat(new_words);
+        words = words.concat(new_words.map(function (item) { return item.text; }));
 
         new_words = [];
 
