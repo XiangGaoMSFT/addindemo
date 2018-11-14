@@ -185,12 +185,7 @@
         for (var i = 0; i < Math.min(new_words.length, 3); ++i) {
             if (words_array.filter(function (item) { return item.text == new_words[i] }).length == 0) {
                 var word_item = { text: new_words[i], weight: 1 };
-                if (words_array.length < max_words_count) {
-                    words_array.push(word_item);
-                } else {
-                    words_array.pop();
-                    words_array.unshift(word_item);
-                }
+                words_array.push(word_item); // always push the new word
             }
         }
 
