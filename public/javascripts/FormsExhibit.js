@@ -151,33 +151,61 @@
 
     var words = [];
     var words_counter = {};
+    var new_words = [];
     socket.on('forms.newResponse', function (data) {
-        words.push(data.response);
-
-        if (words_counter[data.response]) {
-            ++words_counter[data.response];
-        } else {
-            words_counter[data.response] = 1;
+        // limit the max length of the response
+        var response = data.response;
+        if (response.length >= 15) {
+            response = response.substr(0, 12) + "...";
         }
 
-        updateWordWallCloud();
+        new_words.push(response);
     });
 
     function updateWordWallCloud() {
-        var word_counted = Object.keys(words_counter).map(function (d) {
-            return {
-                text: d,
-                weight: words_counter[d]
+        for (var i = 0; i < new_words.length; ++i) {
+            if (words_counter[new_words[i]]) {
+                ++words_counter[new_words[i]];
+            } else {
+                words_counter[new_words[i]] = 1;
             }
+        }
+
+        var words_array = Object.keys(words_counter).map(function (word) {
+            return { text: word, weight: words_counter[word] };
         });
+
+        words_array.sort(function (a, b) {
+            return b.count - a.count;
+        });
+
+        // limit the count to avoid performance degradation
+        const max_words_count = 15;
+        var words_array = words_array.splice(0, max_words_count); // choose top K
+        for (var i = 0; i < Math.min(new_words.length, 3); ++i) {
+            if (words_array.filter(function (item) { item.text == new_words[i] }).length == 0) {
+                if (words_array.length < max_words_count) {
+                    words_array.push(new_words[i]);
+                } else {
+                    words_array.pop();
+                    words_array.unshift(new_words[i]);
+                }
+            }
+        }
+
+        new_words = [];
 
         wordWallDom.FormsExhibitBoard(words);
 
-        wordCloudDom.jQCloud(word_counted, {
+        wordCloudDom.jQCloud(words_array, {
             animation: true,
             fontSizeStep: 0.3,
             fontSizeStepCount: 5,
             height: 475
         });
     }
+
+    setInterval(function () {
+        updateWordWallCloud();
+    }, 2000);
 })
