@@ -183,12 +183,13 @@
         const max_words_count = 15;
         var words_array = words_array.splice(0, max_words_count); // choose top K
         for (var i = 0; i < Math.min(new_words.length, 3); ++i) {
-            if (words_array.filter(function (item) { item.text == new_words[i] }).length == 0) {
+            if (words_array.filter(function (item) { return item.text == new_words[i] }).length == 0) {
+                var word_item = { text: new_words[i], weight: 1 };
                 if (words_array.length < max_words_count) {
-                    words_array.push(new_words[i]);
+                    words_array.push(word_item);
                 } else {
                     words_array.pop();
-                    words_array.unshift(new_words[i]);
+                    words_array.unshift(word_item);
                 }
             }
         }
