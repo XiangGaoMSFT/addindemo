@@ -155,7 +155,7 @@
     socket.on('forms.newResponse', function (data) {
         // limit the max length of the response
         var response = data.response;
-        if (response.length >= 15) {
+        if (response.length >= 20) {
             response = response.substr(0, 12) + "...";
         }
 
@@ -170,7 +170,7 @@
             if (words_counter[new_words[i].text]) {
                 ++words_counter[new_words[i].text].count;
             } else {
-                words_counter[new_words[i].text].count = 1;
+                words_counter[new_words[i].text] = { count: 1 };
             }
 
             words_counter[new_words[i].text].time = new_words[i].time;
