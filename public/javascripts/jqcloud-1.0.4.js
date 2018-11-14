@@ -278,11 +278,11 @@
       // Iterate drawOneWord on every word. The way the iteration is done depends on the drawing mode (delayedMode is true or false)
       if (options.delayedMode){
         drawOneWordDelayed();
-        fadeOutInexistingWords();
+        fadeOutInexistingWords(word_array);
       }
       else {
         $.each(word_array, drawOneWord);
-        fadeOutInexistingWords();
+        fadeOutInexistingWords(word_array);
         if (options.animation) {
             $.each(word_array, function (index, word) {
                 var state = jQCloud_word_span_states[word.text];
