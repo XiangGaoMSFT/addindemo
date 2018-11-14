@@ -176,7 +176,7 @@
         });
 
         words_array.sort(function (a, b) {
-            return b.count - a.count;
+            return b.weight - a.weight;
         });
 
         // limit the count to avoid performance degradation
