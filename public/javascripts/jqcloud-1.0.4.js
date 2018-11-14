@@ -250,7 +250,7 @@
       function fadeOutInexistingWords(word_array) {
         Object.keys(jQCloud_word_span_states).map(function (text) {
             if (word_array.filter(function (item) { return item.text == text}).length == 0) {
-                var state_span = jQCloud_word_span_states[word.text].span;
+                var state_span = jQCloud_word_span_states[text].span;
                 state_span.fadeOut(400, function () {
                     state_span.remove();
                     delete jQCloud_word_span_states.text;
