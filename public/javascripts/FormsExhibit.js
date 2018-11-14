@@ -194,6 +194,8 @@
             }
         }
 
+        words = words.concat(new_words);
+
         new_words = [];
 
         wordWallDom.FormsExhibitBoard(words);
