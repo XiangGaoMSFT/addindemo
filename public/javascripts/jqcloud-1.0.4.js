@@ -247,6 +247,18 @@
         }
       };
 
+      function fadeOutInexistingWords(word_array) {
+        Object.keys(jQCloud_word_span_states).map(function (text) {
+            if (word_array.filter(function (item) { return item.text == text}).length == 0) {
+                var state_span = jQCloud_word_span_states[word.text].span;
+                state_span.fadeOut(400, function () {
+                    state_span.remove();
+                    delete jQCloud_word_span_states.text;
+                })
+            }
+        })
+      }
+
       var drawOneWordDelayed = function(index) {
         index = index || 0;
         if (!$this.is(':visible')) { // if not visible then do not attempt to draw
@@ -266,9 +278,11 @@
       // Iterate drawOneWord on every word. The way the iteration is done depends on the drawing mode (delayedMode is true or false)
       if (options.delayedMode){
         drawOneWordDelayed();
+        fadeOutInexistingWords();
       }
       else {
         $.each(word_array, drawOneWord);
+        fadeOutInexistingWords();
         if (options.animation) {
             $.each(word_array, function (index, word) {
                 var state = jQCloud_word_span_states[word.text];
