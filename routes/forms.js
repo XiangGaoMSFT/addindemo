@@ -32,19 +32,22 @@ router.post('/listener/:id/responses', cors(), function(req, res) {
     if (listener && listener.socket && listener.socket.connected) {
         listener.socket.emit('forms.newResponse', { response: response });
     } else {
+        // even error happens, still return 200 otherwise MS Flow will re-try
         if (!listener) {
             console.error('listener for ' + id + ' does not exist');
-            res.status(500).send({ message: 'listener for ' + id + ' does not exist' });
+            res.status(200).send({ message: 'listener for ' + id + ' does not exist' });
         } else if (!lisener.socket) {
             console.error('socket for ' + id + ' does not exist');
-            res.status(500).send({ message: 'socket for ' + id + ' does not exist' });
+            res.status(200).send({ message: 'socket for ' + id + ' does not exist' });
         } else {
             console.error('connection for ' + id + ' is closed');
-            res.status(500).send({ message: 'connection for ' + id + ' is closed' });
+            res.status(200).send({ message: 'connection for ' + id + ' is closed' });
         }
     }
 
     res.status(200).send();
+
+    // TODO: remove listener automatically
 });
 
 router.onSocketIoLoaded = function(io) {
