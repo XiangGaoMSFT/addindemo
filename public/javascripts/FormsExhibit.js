@@ -153,6 +153,10 @@
     var words_counter = {};
     var new_words = [];
     socket.on('forms.newResponse', function (data) {
+        if (!data || !data.reponse) {
+            return;
+        }
+
         // limit the max length of the response
         var response = data.response;
         if (response.length >= 20) {
