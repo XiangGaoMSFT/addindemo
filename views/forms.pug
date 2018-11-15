@@ -17,8 +17,13 @@ html
                 p You've generated the connection URL before. Do you want to use the existing one or generate a new connection URL?
                 p The connection URL is 
                     a#FormsExhibit-ExistingSocketUri(href='')
-                a#FormsExhibit-UseExisting Use Existing
-                a#FormsExhibit-CreateNew Create New
+                p
+                    a#FormsExhibit-UseExisting Use Existing
+                p
+                    a#FormsExhibit-CreateNew Create New
+                p
+                    input#FormsExhibit-ListenerId(type="text")
+                    a#FormsExhibit-SetListenerId Set listener ID
             #FormsExhibit-Connecting(style='display: none')
                 p Connecting...
             #FormsExhibit-Waiting(style='display: none')

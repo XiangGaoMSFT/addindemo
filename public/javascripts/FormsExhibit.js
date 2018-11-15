@@ -129,6 +129,14 @@
         socket.emit('forms.newListener');
     });
 
+    $('#FormsExhibit-SetListenerId').click(function () {
+        useExisting = true;
+        $('#FormsExhibit-Start').hide();
+        $('#FormsExhibit-Connecting').show();
+        listenerId = $('#FormsExhibit-ListenerId').val();
+        socket.emit('forms.newListener', listenerId);
+    });
+
     socket.on('forms.newListenerId', function (data) {
         listenerId = data.id;
         storage.setItem('listenerId', listenerId);
