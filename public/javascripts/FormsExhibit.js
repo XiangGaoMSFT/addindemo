@@ -153,7 +153,7 @@
     var words_counter = {};
     var new_words = [];
     socket.on('forms.newResponse', function (data) {
-        if (!data || !data.reponse) {
+        if (!data || !data.response) {
             return;
         }
 
