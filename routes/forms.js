@@ -35,7 +35,7 @@ router.post('/listener/:id/responses', cors(), function(req, res) {
         if (!listener) {
             console.error('listener for ' + id + ' does not exist');
             res.status(500).send({ message: 'listener for ' + id + ' does not exist' });
-        } else if (!lisener.socket) {
+        } else if (!listener.socket) {
             console.error('socket for ' + id + ' does not exist');
             res.status(500).send({ message: 'socket for ' + id + ' does not exist' });
         } else {
